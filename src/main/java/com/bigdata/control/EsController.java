@@ -33,13 +33,13 @@ public class EsController {
 			@RequestParam(value="keyWords",required = false) String keyWords,
 			@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
 			@RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize){
-		try{
-			if(pageNum > 1) {
-				keyWords = new String(keyWords.getBytes("ISO_8859_1"), "UTF-8");
-			}
-		}catch (Exception e){
-			e.printStackTrace();
-		}
+//		try{
+//			if(pageNum > 1) {
+//				keyWords = new String(keyWords.getBytes("ISO_8859_1"), "UTF-8");
+//			}
+//		}catch (Exception e){
+//			e.printStackTrace();
+//		}
 
 
 		Map<String,Object> map = new HashMap<String, Object>();

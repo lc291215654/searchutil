@@ -9,4 +9,17 @@
 
 	<context:component-scan base-package="com.bigdata.control"></context:component-scan><!-- this is for scanning the controller package -->
 	<mvc:annotation-driven></mvc:annotation-driven><!-- this make the controller annotation to work -->
+	<mvc:annotation-driven>
+		<mvc:message-converters>
+			<!--解决SpringMVC+AJAX乱码问题-->
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>application/json;charset=UTF-8</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
 </beans>
