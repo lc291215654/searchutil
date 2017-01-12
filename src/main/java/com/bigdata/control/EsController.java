@@ -34,13 +34,9 @@ public class EsController {
 			@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
 			@RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize){
 		try{
-			//if(pageNum > 1) {
-				System.out.println("query:" + keyWords + " pagenum:" + pageNum);
-				String keyWords1 = new String(keyWords.getBytes("ISO_8859_1"), "UTF-8");
-				System.out.println("query1:" + keyWords1);
-				String keyWords2 = new String(keyWords.getBytes("UTF-8"), "ISO_8859_1");
-				System.out.println("query2:" + keyWords2);
-			//}
+			if(pageNum > 1) {
+				keyWords = new String(keyWords.getBytes("ISO_8859_1"), "UTF-8");
+			}
 		}catch (Exception e){
 			e.printStackTrace();
 		}
@@ -63,19 +59,6 @@ public class EsController {
 		model.addAttribute("total",count);
 		model.addAttribute("pageNum",pageNum);
 		model.addAttribute("page",page);
-
-		try{
-			//if(pageNum > 1) {
-			//System.out.println("query:" + keyWords + " pagenum:" + pageNum);
-			String keyWords3 = new String(keyWords.getBytes("ISO_8859_1"), "UTF-8");
-			System.out.println("query3:" + keyWords3);
-			String keyWords4 = new String(keyWords.getBytes("UTF-8"), "ISO_8859_1");
-			System.out.println("query4:" + keyWords4);
-			//}
-		}catch (Exception e){
-			e.printStackTrace();
-		}
-
 		model.addAttribute("kw",keyWords);
 		return "index.jsp";
 	}
