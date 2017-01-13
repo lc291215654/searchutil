@@ -1,14 +1,14 @@
 package com.bigdata.search;
 
+
+
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.*;
 import org.apache.hadoop.hbase.client.*;
-import org.apache.hadoop.hbase.filter.CompareFilter.CompareOp;
+import org.apache.hadoop.hbase.filter.CompareFilter;
 import org.apache.hadoop.hbase.filter.RegexStringComparator;
 import org.apache.hadoop.hbase.filter.RowFilter;
 import org.apache.hadoop.hbase.util.Bytes;
-import org.junit.Before;
-import org.junit.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -49,21 +49,30 @@ public class HbaseUtils {
 		try {
 			conn = ConnectionFactory.createConnection(conf);
 			admin = conn.getAdmin();
+			if(admin == null){
+				System.out.println();
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	public static void main(String[] args) throws Exception {
 		HbaseUtils hbase = new HbaseUtils();
+		//hbase.createTable("test111","cf1") ;
+
+
+
 		//创建一张表
 //		hbase.createTable("stu10","cf");
 //		//查询所有表名
-		hbase.getALLTable();
+//		List<String> list = hbase.getALLTable();
+//		System.out.println(list);
 //		//往表中添加一条记录
 //		hbase.put(hbase.TABLE_NAME, "1", hbase.COLUMNFAMILY_1, hbase.COLUMNFAMILY_1_AUTHOR, "sxt");
 //		hbase.addOneRecord("stu","key1","cf","age","24");
 //		//查询一条记录
-//		hbase.getKey("stu","key1");
+		Doc doc1 = hbase.get("doc","-1001243838");
+//		System.out.println(doc1);
 //		//获取表的所有数据
 //		hbase.getALLData("stu");
 //		//删除一条记录
@@ -76,6 +85,10 @@ public class HbaseUtils {
 		//84138413_20130313145955
 		//hbase.getRowFilter("waln_log","^*_201303131400\\d*$");
 	}
+
+
+
+
 	/**
 	 * rowFilter的使用
 	 * @param tableName
@@ -86,7 +99,7 @@ public class HbaseUtils {
 		Table table = conn.getTable(TableName.valueOf(tableName));
 		Scan scan = new Scan();
 //		Filter
-		RowFilter rowFilter = new RowFilter(CompareOp.NOT_EQUAL, new RegexStringComparator(reg));
+		RowFilter rowFilter = new RowFilter(CompareFilter.CompareOp.NOT_EQUAL, new RegexStringComparator(reg));
 		scan.setFilter(rowFilter);
 		ResultScanner scanner = table.getScanner(scan);
 		for (Result result : scanner) {
@@ -163,27 +176,38 @@ public class HbaseUtils {
 	}
 	
 	// 读取一条记录
-		@SuppressWarnings({ "deprecation", "resource" })
 		public Doc get(String tableName, String row) throws IOException {
 			Table table = conn.getTable(TableName.valueOf(tableName));
 			Get get = new Get(row.getBytes());
-			Doc Doc = null;
+			//get.addColumn(Bytes.toBytes("cf1"),Bytes.toBytes("author")) ;
+			Doc doc = null;
 			try {
 				
 				Result result = table.get(get);
+
+//				System.out.println("获得到rowkey:" + new String(result.getRow()));
+//				for (KeyValue keyValue : result.raw()) {
+//					System.out.println("列：" + new String(keyValue.getFamily())
+//							+ "====值:" + new String(keyValue.getValue()));
+//				}
+
+
+				//byte[] val = result.getValue(Bytes.toBytes("cf1"),Bytes.toBytes("author")) ;
+				//System.out.println(Bytes.toString(val));
 				KeyValue[] raw = result.raw();
+				//System.out.println(raw);
 				if (raw.length == 4) {
-					Doc = new Doc();
-					Doc.setId(Integer.parseInt(row));
-					Doc.setTitle(new String(raw[3].getValue()));
-					Doc.setAuthor(new String(raw[0].getValue()));
-					Doc.setContent(new String(raw[1].getValue()));
-					Doc.setDescribe(new String(raw[2].getValue()));
+					doc = new Doc();
+					doc.setId(Integer.parseInt(row));
+					doc.setAuthor(new String(raw[0].getValue()));
+					doc.setContent(new String(raw[1].getValue()));
+					doc.setDescribe(new String(raw[2].getValue()));
+					doc.setTitle(new String(raw[3].getValue()));
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			return Doc;
+			return doc;
 		}
 		
 		
@@ -198,14 +222,12 @@ public class HbaseUtils {
 					+ "','" + data + "'");
 		}
 
-	@Before
 	public void setup() throws IOException {
 		Configuration config = HBaseConfiguration.create();
 		config.set("hbase.zookeeper.quorum","master,slave1,slave2");
 		conn = ConnectionFactory.createConnection(config);
 	}
 
-	@Test
 	public void insert() throws IOException {
 		Table ta = conn.getTable(TableName.valueOf("doc"));
 		Put put = new Put(("1234").getBytes());
