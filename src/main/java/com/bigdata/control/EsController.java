@@ -34,9 +34,9 @@ public class EsController {
 			@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
 			@RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize){
 		try{
-			if(pageNum > 1) {
+			//if(pageNum > 1) {
 				keyWords = new String(keyWords.getBytes("ISO_8859_1"), "UTF-8");
-			}
+			//}
 		}catch (Exception e){
 			e.printStackTrace();
 		}

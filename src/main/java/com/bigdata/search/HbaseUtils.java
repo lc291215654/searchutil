@@ -45,7 +45,8 @@ public class HbaseUtils {
 	 */
 	public HbaseUtils() {
 		Configuration conf = HBaseConfiguration.create();
-		conf.set("hbase.zookeeper.quorum","192.168.1.113,192.168.1.114,192.168.1.115");
+		conf.set("hbase.zookeeper.quorum","192.168.1.110,192.168.1.111,192.168.1.112");
+		conf.set("zookeeper.znode.parent","/hbase-unsecure");
 		try {
 			conn = ConnectionFactory.createConnection(conf);
 			admin = conn.getAdmin();

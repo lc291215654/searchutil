@@ -42,12 +42,12 @@ public class Esutil {
             return client;
         }
 
-        Settings settings = Settings.builder().put("cluster.name", "e1").build();
+        Settings settings = Settings.builder().put("cluster.name", "es_cluster").build();
         try {
             client = new PreBuiltTransportClient(settings)
-                    .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("hds113"), 9300))
-                    .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("hds114"), 9300))
-                    .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("hds128"), 9300));
+                    .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("hds110"), 9300))
+                    .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("hds111"), 9300))
+                    .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("hds112"), 9300));
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (Exception e) {
