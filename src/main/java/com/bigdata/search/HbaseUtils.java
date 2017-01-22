@@ -72,8 +72,14 @@ public class HbaseUtils {
 //		hbase.put(hbase.TABLE_NAME, "1", hbase.COLUMNFAMILY_1, hbase.COLUMNFAMILY_1_AUTHOR, "sxt");
 //		hbase.addOneRecord("stu","key1","cf","age","24");
 //		//查询一条记录
-		Doc doc1 = hbase.get("doc","-1001243838");
-//		System.out.println(doc1);
+		Doc doc1 = hbase.get("doc","-1000053312");
+		System.out.println(doc1.getId());
+		System.out.println(doc1.getAuthor());
+		System.out.println(doc1.getContent());
+		System.out.println(doc1.getDescribe());
+
+		Esutil.addIndex("test_hdcom1","doc",doc1);
+		System.out.println(1+"-----had completed");
 //		//获取表的所有数据
 //		hbase.getALLData("stu");
 //		//删除一条记录

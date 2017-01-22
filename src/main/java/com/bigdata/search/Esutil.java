@@ -65,10 +65,10 @@ public class Esutil {
         hashMap.put("author", Doc.getAuthor());
 
         IndexResponse response = getClient().prepareIndex(index, type).setSource(hashMap).execute().actionGet();
-        IndexResponse response2 = getClient().prepareIndex(index, type).setSource(hashMap).get() ;
-        System.out.println(response2.getIndex());
-        System.out.println(response2.getType());
-        System.out.println(response2.getId()) ;
+        //IndexResponse response2 = getClient().prepareIndex(index, type).setSource(hashMap).get() ;
+        //System.out.println(response2.getIndex());
+        //System.out.println(response2.getType());
+        //System.out.println(response2.getId()) ;
         return response.getId();
     }
 

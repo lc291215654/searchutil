@@ -9,12 +9,13 @@
 
 %>
 
-<link rel="stylesheet" type="text/css" href="<%=path%>/content/css/bootstrap.css" />
-   <link rel="stylesheet" type="text/css" href="<%=path%>/content/css/bootstrap-responsive.css"/>
+<link rel="stylesheet" type="text/css" href="/bootstrap.css" />
+   <link rel="stylesheet" type="text/css" href="/content/css/bootstrap-responsive.css"/>
+   <link rel="stylesheet" type="text/css" href="/content/css/bootstrap-responsive.css"/>
 
    <style type="text/css">
    .bg{
-   	background-image: url(<%=path%>/content/img/search1.jpg);
+   	background-image: url(/search1.jpg);
   background-size: 100% 100%;  
   -moz-background-size: 100% 100%;  
   -webkit-background-size: 100% 100%;  
@@ -29,7 +30,7 @@
 
 <div style="text-align: center;padding-top: 15%">
 <form action="search.do" method="get" class="form-horizontal">
-  <input type="text" name="keyWords" class="form-control" style="width:500px;height:40px"/>
+  <input type="text" name="keyWords" class="form-control" style="width:500px;height:30px"/>
   <input type="submit" class="btn btn-success" value="搜索" style="height:40px">
   <input type="hidden" value="1" name="pageNum">
 </form>

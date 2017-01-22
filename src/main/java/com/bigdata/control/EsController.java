@@ -23,12 +23,12 @@ public class EsController {
 	static final Logger logger = LoggerFactory.getLogger(EsController.class);
 
 	public static String path = "F:/index";
-	@RequestMapping("/create.do")
+	@RequestMapping("create.do")
 	public String createIndex() throws Exception {
-		return "/create.jsp";
+		return "./create.jsp";
 	}
 
-	@RequestMapping("/search.do")
+	@RequestMapping("search.do")
 	public String serachArticle(Model model,
 			@RequestParam(value="keyWords",required = false) String keyWords,
 			@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
@@ -45,7 +45,7 @@ public class EsController {
 		Map<String,Object> map = new HashMap<String, Object>();
 		int count = 0;
 		try {
-			map = Esutil.search(keyWords,"hdcom","doc",(pageNum-1)*pageSize, pageSize);
+			map = Esutil.search(keyWords,"test_hdcom1","doc",(pageNum-1)*pageSize, pageSize);
 			count = Integer.parseInt(((Long) map.get("count")).toString());
 		} catch (Exception e) {
 			logger.error("查询索引错误!{}",e);
@@ -60,7 +60,7 @@ public class EsController {
 		model.addAttribute("pageNum",pageNum);
 		model.addAttribute("page",page);
 		model.addAttribute("kw",keyWords);
-		return "index.jsp";
+		return "./index.jsp";
 	}
 
 
@@ -71,11 +71,11 @@ public class EsController {
 	@RequestMapping("/detailDocById/{id}.do")
 	public String detailArticleById(@PathVariable(value="id") String id, Model modelMap) throws IOException {
 		//这里用的查询是直接从hbase中查询一条字符串出来做拆分封装，这里要求同学们用protobuffer
-		System.out.println("detailDocById");
+		//System.out.println("detailDocById");
 		HbaseUtils hbaseUtils = new HbaseUtils();
 		Doc Doc = hbaseUtils.get(hbaseUtils.TABLE_NAME, id);
 		modelMap.addAttribute("Doc",Doc);
-		System.out.println("/detail.jsp");
+		//System.out.println("/detail.jsp");
 		return "/detail.jsp";
 	}
 }

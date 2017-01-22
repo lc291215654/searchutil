@@ -1,66 +1,67 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page isELIgnored="false"%>
-
+<%
+  String path = request.getContextPath();
+  String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
+  <%--<base href="<%=basePath%>">--%>
+
+  <link rel="stylesheet" type="text/css" href="./content/css/bootstrap.css">
+  <script type="application/javascript" src="./content/js/jquery-3.1.1.min.js"></script>
+
+
   <title>全文搜索</title>
   <meta http-equiv="pragma" content="no-cache">
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
-  <meta charset="UTF-8">
-
-
-
-
-  <link rel="stylesheet" type="text/css" href="content/css/bootstrap.css">
-  <link rel="stylesheet" type="text/css" href="content/css/bootstrap-responsive.css">
-  <link rel="stylesheet" type="text/css" href="content/css/bootmetro.css">
-  <link rel="stylesheet" type="text/css" href="content/css/bootmetro-tiles.css">
-  <link rel="stylesheet" type="text/css" href="content/css/bootmetro-charms.css">
-  <link rel="stylesheet" type="text/css" href="content/css/metro-ui-light.css">
-  <link rel="stylesheet" type="text/css" href="content/css/icomoon.css">
-
-  <style type="text/css">
-    .bg{
-      background-image: url(content/img/search1.jpg);
-      background-size: 100% 100%;
-      -moz-background-size: 100% 100%;
-      -webkit-background-size: 100% 100%;
-
-    }
-  </style>
-
-
-
+  <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+  <meta http-equiv="description" content="This is my page">
 
 </head>
 
 <body>
-<%--<div style="width:100%;height: 960px;" class="bg">
 
-  <div style="text-align: center;padding-top: 15%">--%>
-  <form action="search.do" method="get">
-    <input type="text" name="keyWords" />
-    <input type="submit" value="搜索">
-    <input type="hidden" value="1" name="pageNum">
-  </form>
 
+<div style="margin-left: 25px">
+  <div>
+    <div style="float: left">
+      <a href="test.jsp"><img src="./content/img/cetc32.png" alt="" style="width: 70px"></a>
+
+    </div>
+    <div style="margin-left: 20px">
+      <div style="margin-top: 15px">
+        <form action="search.do" method="get" class="form-horizontal">
+          <input type="text" name="keyWords" class="form-control" id="keyWords" style="height: 30px;margin-left: 20px"/>
+          <input type="submit" value="搜索" class="btn btn-info" style="height: 30px">
+          <input type="hidden" value="1" name="pageNum">
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="margin-top: 20px">
     <c:if test="${! empty page.list }">
-      <h3>为您找到相关结果约${total}个</h3>
+
+
+    <div style="width: 90%;margin-left: 5%">
+      <h4>为您找到相关结果约${total}个</h4>
+      <br>
       <c:forEach items="${page.list}" var="bean">
-        <h3><a href="/detailDocById/${bean.id}.do">${bean.title}</a></h3>
-        <span>
-            ${bean.describe}
-        </span>
+        <a href="detailDocById/${bean.id}.do">${bean.title}</a>
         <br/>
+        <br/>
+        <span>${bean.describe}</span>
+        <br/>
+        <hr style="height:2px;border:none;border-top:3px solid #117f7f;width: 100%;">
         <br/>
       </c:forEach>
 
-      <div></div><br/>
       <c:if test="${page.hasPrevious }">
         <a href="search.do?pageNum=${page.previousPageNum }&keyWords=${kw}"> 上一页</a>
       </c:if>
@@ -71,12 +72,21 @@
       <c:if test="${page.hasNext }">
         <a href="search.do?pageNum=${page.nextPageNum }&keyWords=${kw}"> 下一页</a>
       </c:if>
-    </c:if>
-<%--
+      </c:if>
+
+    </div>
+
+  </div>
 </div>
-</div>--%>
+<script type="application/javascript">
+    // alert("${kw}");
+    var keyword = "${kw}";
+    if (keyword!=null){
+        //   alert(keyword);
+        //   $("#keyWords").val(keyword);
+        document.getElementById("keyWords").value = keyword;
+    }
 
-
-
+</script>
 </body>
 </html>

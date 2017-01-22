@@ -65,7 +65,7 @@ public class PageUtil<T> {
 		//本次查询开始的行数
 		this.rowStart = (pageNum - 1) * pageSize;
 		//每页显示的页码数
-		this.everyPageCount = 5;
+		this.everyPageCount = 8;
 		//每页显示的页码开始数
 		this.everyPageStart = pageNum - (everyPageCount / 2) < 1 ? 1 : pageNum - (everyPageCount / 2);
 		//每页显示的页码结束数
