@@ -1,18 +1,20 @@
 package com.bigdata.search;
 
 import org.apache.commons.lang.StringUtils;
+import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsRequest;
+import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsRequestBuilder;
+import org.elasticsearch.action.admin.indices.get.GetIndexRequest;
+import org.elasticsearch.action.admin.indices.get.GetIndexResponse;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
-import org.elasticsearch.client.AdminClient;
-import org.elasticsearch.client.Client;
-import org.elasticsearch.client.ClusterAdminClient;
-import org.elasticsearch.client.IndicesAdminClient;
+import org.elasticsearch.client.*;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.text.Text;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
+import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
@@ -20,13 +22,15 @@ import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
+import sun.util.calendar.BaseCalendar;
 
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
 
 
 public class Esutil {
@@ -148,7 +152,54 @@ public class Esutil {
         return map;
     }
 
-    public static void main(String[] args) {
+
+
+    static class MyTimerTask extends TimerTask {
+        public void run() {
+            SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
+            System.out.println("当前的系统时间为："+simpleDateFormat.format(new Date()));
+
+            AdminClient adminClient = getClient().admin();
+            String indexname = "hdcom-" + (Calendar.getInstance().get(Calendar.YEAR)) + "-" +(Calendar.getInstance().get(Calendar.MONTH)+1) ;
+            IndicesExistsRequest indicesExistsRequest = new IndicesExistsRequest(indexname) ;
+            boolean currentIndexIsExist = adminClient.indices().exists(indicesExistsRequest).actionGet().isExists() ;
+            if(currentIndexIsExist){
+                System.out.println("当前使用的索引库： "+indexname+" 存在") ;
+            }else {
+                System.out.println("当前使用的索引库： "+indexname+" 不存在……") ;
+                System.out.println("正在建立索引库： "+indexname) ;
+                adminClient.indices().prepareCreate(indexname)
+                        .setSettings(Settings.builder()
+                                .put("index.number_of_shards", 3)
+                                .put("index.number_of_replicas", 2)
+                        )
+                        .get();
+            }
+
+            String indexname2 = "hdcom-" + (Calendar.getInstance().get(Calendar.YEAR)) + "-" +(Calendar.getInstance().get(Calendar.MONTH)+2) ;
+            IndicesExistsRequest indicesExistsRequest2 = new IndicesExistsRequest(indexname2) ;
+            boolean currentIndexIsExist2 = adminClient.indices().exists(indicesExistsRequest2).actionGet().isExists() ;
+            if(currentIndexIsExist2){
+                System.out.println("即将使用的索引库： "+indexname2+" 存在") ;
+            }else {
+                System.out.println("即将使用的索引库： "+indexname2+" 不存在……") ;
+                System.out.println("正在建立索引库： "+indexname2) ;
+                adminClient.indices().prepareCreate(indexname2)
+                        .setSettings(Settings.builder()
+                                .put("index.number_of_shards", 3)
+                                .put("index.number_of_replicas", 2)
+                        )
+                        .get();
+                GetIndexRequest getIndexRequest = new GetIndexRequest() ;
+                adminClient.indices().prepareGetIndex().setIndices("test").addTypes("test").get() ;
+            }
+
+            System.out.println("-------------------------------休息10秒-----------------------------------") ;
+            System.out.println();
+        }
+    }
+
+    public static void main(String[] args) throws IOException {
 //        Map<String, Object> search = Esutil.search("中国", "hdcom", "doc", 0, 20);
 //        List<Map<String, Object>> list = (List<Map<String, Object>>) search.get("dataList");
 //        System.out.println(list);
@@ -157,16 +208,47 @@ public class Esutil {
 //        doc1.setId(291215);
 //        Esutil.addIndex("hdcom","doc",doc1) ;
 
-        GetResponse response = Esutil.getClient().prepareGet("hdcom", "doc", "AVmRKtAD61eiAPPLlvLf")
-                .get();
-        Map<String,Object> re = response.getSource() ;
-        System.out.println(re);
+//        GetResponse response = Esutil.getClient().prepareGet("hdcom", "doc", "AVmRKtAD61eiAPPLlvLf")
+//                .get();
+//        Map<String,Object> re = response.getSource() ;
+//        System.out.println(re);
 
-        AdminClient adminClient = client.admin();
+//        AdminClient adminClient = getClient().admin();
+//        String indexname = "hdcom-" + (Calendar.getInstance().get(Calendar.YEAR)) + "-" +(Calendar.getInstance().get(Calendar.MONTH)+1) ;
+//        System.out.println(indexname) ;
+//        IndicesExistsRequest indicesExistsRequest = new IndicesExistsRequest(indexname) ;
+//        System.out.println(adminClient.indices().exists(indicesExistsRequest).actionGet().isExists() );
+//
+//        ClusterAdminClient clusterAdminClient = adminClient.cluster() ;
+//        IndicesAdminClient indicesAdminClient = adminClient.indices() ;
 
-        ClusterAdminClient clusterAdminClient = adminClient.cluster() ;
-        IndicesAdminClient indicesAdminClient = adminClient.indices() ;
 
-        //System.out.println("aaa" );
+        //定时检查
+        Timer timer = new Timer();
+        timer.schedule(new MyTimerTask(), 1000,10000);
+        AdminClient adminClient = getClient().admin();
+
+//        adminClient.indices().prepareCreate("test")
+//                .setSettings(Settings.builder()
+//                        .put("index.number_of_shards", 3)
+//                        .put("index.number_of_replicas", 2)
+//                )
+//                .get();
+       // GetIndexRequest getIndexRequest = new GetIndexRequest() ;
+        //adminClient.indices().prepareGetIndex().setIndices("test").addTypes("test").get() ;
+       // adminClient.indices().prepareGetIndex().setIndices("test").addTypes("test1").get() ;
+//        XContentBuilder builder = jsonBuilder()
+//                .startObject()
+//                .field("user", "kimchy")
+//                .field("postDate", new Date())
+//                .field("message", "trying out Elasticsearch")
+//                .endObject() ;
+//        String json = builder.string();
+//        //GetIndexResponse response = adminClient.indices().prepareGetIndex().setIndices("test").setTypes("test1").get() ;
+//        IndexResponse response = client.prepareIndex("test", "test1", "2").setSource(json).get();
+//        System.out.println(response.toString());
+
+
+        System.out.println("aaa" );
     }
 }
