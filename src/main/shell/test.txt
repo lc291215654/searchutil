@@ -1,0 +1,4 @@
+adfsafaaaaacde
+private#static#Admin#admin ;
+fa#private#static#Configuration#conf ;
+private#static#Connection#conn ;
