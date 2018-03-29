@@ -1,0 +1,4 @@
+searchutil
+使用webmagic进行网络数据爬取
+使用hbase存储数据
+使用elasticsearch索引数据
