@@ -5,7 +5,7 @@
          http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
-    <display-name>Social Media Monitor</display-name>
+    <display-name>SocialMediaMonitor</display-name>
 
 
     <!-- this is the dispatchterservlet -->
@@ -16,7 +16,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>mvc-dispatcher</servlet-name>
-        <url-pattern>/</url-pattern>
+        <url-pattern>*.do</url-pattern>
     </servlet-mapping>
 
     <filter>
@@ -37,7 +37,7 @@
     </filter-mapping>
 
 
-    <filter>
+    <!--<filter>
         <filter-name>etagFilter</filter-name>
         <filter-class>org.springframework.web.filter.ShallowEtagHeaderFilter</filter-class>
     </filter>
@@ -52,7 +52,7 @@
     <filter-mapping>
         <filter-name>etagFilter</filter-name>
         <url-pattern>/content/css/*</url-pattern>
-    </filter-mapping>
+    </filter-mapping>-->
 
     <welcome-file-list>
         <welcome-file>test.jsp</welcome-file>

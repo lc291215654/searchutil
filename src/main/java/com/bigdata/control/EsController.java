@@ -28,7 +28,7 @@ public class EsController {
 		return "./create.jsp";
 	}
 
-	@RequestMapping("welcome")
+	@RequestMapping("welcome.do")
 	public String welcome() throws Exception {
 		return "./welcome.jsp";
 	}
