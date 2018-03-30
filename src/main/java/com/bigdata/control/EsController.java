@@ -28,6 +28,11 @@ public class EsController {
 		return "./create.jsp";
 	}
 
+	@RequestMapping("welcome")
+	public String welcome() throws Exception {
+		return "./welcome.jsp";
+	}
+
 	@RequestMapping("search.do")
 	public String serachArticle(Model model,
 			@RequestParam(value="keyWords",required = false) String keyWords,
