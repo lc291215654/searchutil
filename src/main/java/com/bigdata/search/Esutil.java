@@ -1,6 +1,8 @@
 package com.bigdata.search;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsRequest;
 import org.elasticsearch.action.admin.indices.get.GetIndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
@@ -28,11 +30,12 @@ import java.util.*;
 
 public class Esutil {
 
+    private static Logger logger = LogManager.getLogger(Esutil.class);
+
     public static Client client = null;
 
     /**
      * 获取客户端
-     *
      * @return
      */
     public static Client getClient() {
@@ -45,6 +48,7 @@ public class Esutil {
                     .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("huadonbd1"), 9300))
                     .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("huadonbd2"), 9300));
         } catch (UnknownHostException e) {
+            logger.error("elasticsearch集群客户端获取失败！");
             e.printStackTrace();
         }
         return client;

@@ -35,7 +35,7 @@ Text selection color
 }
 
 /*
-Text input, checkbox, radio, and select control colors.
+Text input, checkbox, radio, and select controller colors.
 */
 input[type=text], input[type=password],
 input[type=email], input[type=number],
@@ -169,7 +169,7 @@ input::-ms-clear:hover:active, input::-ms-reveal:hover:active {
 }
 
 /*
-Option for select control (all colors are same for both light and dark).
+Option for select controller (all colors are same for both light and dark).
 */
 option:checked, select:focus::-ms-value {
    color: rgb(255, 255, 255);
@@ -208,7 +208,7 @@ select:disabled:focus::-ms-value {
 
 
 /*
-Button control colors.
+Button controller colors.
 */
 button, input[type=button], input[type=submit],
 input[type=reset], input[type=file]::-ms-browse {
@@ -285,7 +285,7 @@ input[type=file]:disabled::-ms-browse, input[type=file]:disabled::-ms-browse:act
 
 
 /*
-File upload control colors.
+File upload controller colors.
 */
 input[type=file] {
     background-color: transparent;
@@ -341,14 +341,14 @@ a[disabled], a[disabled]:active { /* :disabled pseudo-class doesn't apply to a, 
 
 
 /*
-Range control colors.
+Range controller colors.
 */
 input[type=range], input[type=range]::-ms-track {
     background-color: transparent;
 }
 
 /*
-Progress control colors.
+Progress controller colors.
 */
 .progress {
     background-color: rgba(255,255,255,0.38);
@@ -364,7 +364,7 @@ Progress control colors.
 }
 
 /*
-FlipView control colors.
+FlipView controller colors.
 */
 .win-flipview .win-navbutton {
     background-color: rgba(213, 213, 213, 0.35);
@@ -380,7 +380,7 @@ FlipView control colors.
 }
 
 /*
-ListView control colors.
+ListView controller colors.
 */
 .win-listview .win-container:hover {
     background-color: rgba(255, 255, 255, 0.3);
@@ -449,7 +449,7 @@ ListView control colors.
 }
 
 /*
-Back button control colors.
+Back button controller colors.
 */
 .win-backbutton {
     background-color: transparent;
@@ -698,7 +698,7 @@ hr.win-command {
    background-color: rgb(123, 123, 123);
 }
 /*
-AppBar control colors.
+AppBar controller colors.
 */
 .win-appbar {
     background-color: rgb(0, 0, 0);
@@ -711,7 +711,7 @@ AppBar control colors.
 
 
 /*
-Flyout control colors, flyout normally has light theme.
+Flyout controller colors, flyout normally has light theme.
 */
 .win-flyout, .win-settingsflyout {
     /* Default Style */
@@ -741,7 +741,7 @@ Menu button colors, menu is always light theme.
 }
 
 /*
-Rating control colors.
+Rating controller colors.
 */
 .win-rating .win-star.win-user.win-full,
 .win-rating .win-star.win-user.win-full.win-disabled  {
@@ -766,7 +766,7 @@ Rating control colors.
 }
 
 /*
-Toggleswitch control colors.
+Toggleswitch controller colors.
 */
 .win-toggleswitch .win-title {
     color: rgba(255, 255, 255, 0.6);
@@ -811,7 +811,7 @@ Toggleswitch control colors.
 }
 
 /*
-Tooltip control colors.
+Tooltip controller colors.
 */
 .win-tooltip {
     background-color: rgb(255, 255, 255);

@@ -231,7 +231,7 @@ input[type=tel], input[type=url], input[type=search], textarea, .win-textarea {
 
 
 /*
-Button control.
+Button controller.
 */
 a.win-command, button, input[type=button], input[type=reset], input[type=submit] {
    min-width: 90px;
@@ -250,7 +250,7 @@ a.win-command {
 
 
 /*
-File upload control.
+File upload controller.
 */
 input[type=file] {
    /*border: none;*/
@@ -325,7 +325,7 @@ input[type="color"],
 
 
 /*
-Select control.
+Select controller.
 */
 select {
    padding: 2px;
@@ -350,7 +350,7 @@ input.search-query {
 }
 
 /*
-Range control.
+Range controller.
 */
 input[type=range] {
    width: 280px;
@@ -359,7 +359,7 @@ input[type=range] {
 }
 
 /*
-Vertical range control.
+Vertical range controller.
 */
 input[type=range].win-vertical {
    width: auto;
@@ -369,7 +369,7 @@ input[type=range].win-vertical {
 }
 
 /*
-Progress control. */
+Progress controller. */
 .progress {
    /*height: auto;*/
    background-image: none;
@@ -712,7 +712,7 @@ AppBar Edgy Container
 }
 
 /*
-AppBar control.
+AppBar controller.
 */
 .win-commandlayout {
    /*text-align: right;*/
@@ -759,7 +759,7 @@ AppBar control.
 
 
 /*
-Flyout control.
+Flyout controller.
 */
 .win-flyout {
    z-index: 1003;
@@ -793,7 +793,7 @@ Flyout control.
 
 
 /*
-Menu control.
+Menu controller.
 */
 .win-menu {
    padding: 5px 0 7px 0;
@@ -956,7 +956,7 @@ Common AppBar/Flyout/SettingsFlyout styles
 
 
 /*
-Rating control.
+Rating controller.
 */
 /*.win-rating {
     display: -ms-inline-flexbox;
@@ -998,7 +998,7 @@ Rating control.
 
 
 /*
-DatePicker control.
+DatePicker controller.
 .win-datepicker {
     display: -ms-inline-flexbox;
    height: auto;
@@ -1017,7 +1017,7 @@ DatePicker control.
 */
 
 /*
-TimePicker control.
+TimePicker controller.
 .win-timepicker {
     display: -ms-inline-flexbox;
    height: auto;
@@ -1038,7 +1038,7 @@ TimePicker control.
 */
 
 /*
-Toggle control.
+Toggle controller.
 */
 .win-toggleswitch {
    padding: 0;
@@ -1076,7 +1076,7 @@ Toggle control.
 }
 
 /*
-Tooltip & PopOver control.
+Tooltip & PopOver controller.
 */
 .tooltip-inner {
    -webkit-border-radius: 0;
@@ -1153,7 +1153,7 @@ Tooltip & PopOver control.
 }
 
 /*
-ScrollView control.
+ScrollView controller.
 */
 .win-scrollview {
    overflow-x: auto;
@@ -1163,7 +1163,7 @@ ScrollView control.
 }
 
 /*
-ListView control.
+ListView controller.
 */
 .win-listview {
    overflow: hidden;
@@ -1383,7 +1383,7 @@ ListView control.
 }
 
 /*
-FlipView control.
+FlipView controller.
 .win-flipview {
     overflow: hidden;
     height: 400px;

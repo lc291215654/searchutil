@@ -1,4 +1,4 @@
-package com.bigdata.util;
+package com.bigdata.utils;
 
 import java.util.List;
 

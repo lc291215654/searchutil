@@ -1,7 +1,6 @@
 package com.bigdata.search;
 
 
-
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.*;
 import org.apache.hadoop.hbase.client.*;
@@ -13,8 +12,6 @@ import org.apache.hadoop.hbase.util.Bytes;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.sun.xml.internal.ws.dump.LoggingDumpTube.Position.Before;
 
 
 public class HbaseUtils {
