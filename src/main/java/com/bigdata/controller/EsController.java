@@ -8,9 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -32,6 +30,16 @@ public class EsController {
     @RequestMapping("welcome.do")
     public String welcome() throws Exception {
         return "./welcome.jsp";
+    }
+
+    @RequestMapping("json.do")
+    @ResponseBody
+//    public HashMap<String,String> json(@RequestBody  Person person) throws Exception {
+    public HashMap<String,String> json() throws Exception {
+        HashMap<String,String> map = new HashMap<String,String>();
+        map.put("aaa","aaa");
+        map.put("bbb","bbb");
+        return map;
     }
 
     @RequestMapping("search.do")

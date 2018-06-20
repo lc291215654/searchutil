@@ -37,6 +37,19 @@
         </property>
     </bean>
 
+    <bean
+            class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+        <property name="order" value="1" />
+        <property name="defaultViews">
+            <list>
+                <!-- JSON View -->
+                <bean
+                        class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+                </bean>
+            </list>
+        </property>
+    </bean>
+
     <bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean"/>
     <task:executor id="executor" pool-size="5"/>
     <task:scheduler id="scheduler" pool-size="10"/>
